@@ -20,3 +20,7 @@ This .NET application is structured into distinct layers, each serving a specifi
 - **GroceryList.Infrastructure**:
   - The infrastructure layer responsible for data access, external services, and integration.
   - Manages data storage using Entity Framework or other data access technologies.
+
+- **GroceryList.Tests**:
+  - The testing layer responsible for unit tests to ensure the correctness and robustness of the application.
+  - Contains unit tests for various components of the application, including the Core and Application layers.
