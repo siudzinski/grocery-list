@@ -8,6 +8,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\GroceryList.Core\GroceryList.Core.csproj" />
+    <ProjectReference Include="..\GroceryList.Infrastructure\GroceryList.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

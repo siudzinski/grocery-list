@@ -3,7 +3,7 @@ using GroceryList.Core.Repositories;
 
 namespace GroceryList.Infrastructure.Repositories;
 
-public class ShoppingListRepository : IShoppingListRepository
+public  class ShoppingListRepository : IShoppingListRepository
 {
     private List<ShoppingList> _shoppingLists = new()
     {
