@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GroceryList.Application\GroceryList.Application.csproj" />
-    <ProjectReference Include="..\GroceryList.Infrastructure\GroceryList.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

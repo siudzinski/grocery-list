@@ -15,7 +15,7 @@ public class GetShoppingListByIdHandler
         }
         public ShoppingListDto? Handle(GetShoppingListById query)
         {
-            ShoppingList shoppingList = _shoppingListRepository.GetById(query.ShoppingListId);
+            ShoppingList? shoppingList = _shoppingListRepository.GetById(query.ShoppingListId);
 
             if (shoppingList == null)
             {

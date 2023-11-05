@@ -2,6 +2,6 @@ namespace GroceryList.Application.DTOs;
 
 public class ShoppingListDto
 {
-    public List<string>? Items { get; set; }
+    public IEnumerable<string>? Items { get; init; }
     public Guid Id { get; internal set; }
 }

@@ -1,5 +1,5 @@
-using GroceryList.Core.Entities;
-using GroceryList.Core.Repositories;
+using GroceryList.Application.DTOs;
+using GroceryList.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryList.Api.Controllers
@@ -8,23 +8,23 @@ namespace GroceryList.Api.Controllers
     [ApiController]
     public class ShoppingListController : ControllerBase
     {
-        private readonly IShoppingListRepository _shoppingListRepository;
+        private readonly GetShoppingListByIdHandler _getShoppingListByIdHandler;
 
-        public ShoppingListController(IShoppingListRepository shoppingListRepository)
+        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler)
         {
-            _shoppingListRepository = shoppingListRepository;
+            _getShoppingListByIdHandler = getShoppingListByIdHandler;
         }
 
         [HttpGet("{id}")]
         public ActionResult GetList(Guid id)
         {
-            ShoppingList shoppingList = _shoppingListRepository.GetById(id);
-            
-            if (shoppingList == null)
+            ShoppingListDto? shoppingListDto = _getShoppingListByIdHandler.Handle(new GetShoppingListById(id));
+
+            if (shoppingListDto == null)
             {
                 return NotFound();
             }
-            return Ok(shoppingList);
+            return Ok(shoppingListDto);
         }
-    } 
+    }
 }
