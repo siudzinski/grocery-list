@@ -1,3 +1,5 @@
+using GroceryList.Core.Entities;
+using GroceryList.Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryList.Api.Controllers
@@ -6,6 +8,23 @@ namespace GroceryList.Api.Controllers
     [ApiController]
     public class ShoppingListController : ControllerBase
     {
-        //create an endpoint /shopping-list/{id} that return shopping list or NotFound (404)
-    }
+        private readonly IShoppingListRepository _shoppingListRepository;
+
+        public ShoppingListController(IShoppingListRepository shoppingListRepository)
+        {
+            _shoppingListRepository = shoppingListRepository;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetList(Guid id)
+        {
+            ShoppingList shoppingList = _shoppingListRepository.GetById(id);
+            
+            if (shoppingList == null)
+            {
+                return NotFound();
+            }
+            return Ok(shoppingList);
+        }
+    } 
 }

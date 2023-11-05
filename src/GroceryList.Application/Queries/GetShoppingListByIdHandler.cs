@@ -1,27 +1,33 @@
 using GroceryList.Application.DTOs;
 using GroceryList.Core.Entities;
+using GroceryList.Core.Repositories;
 using GroceryList.Infrastructure.Repositories;
 
 namespace GroceryList.Application.Queries;
 
 public class GetShoppingListByIdHandler
 {
+        private IShoppingListRepository _shoppingListRepository;
 
-    public ShoppingListDto? Handle(GetShoppingListById query)
-    {
-        ShoppingList shoppingList = ShoppingListRepository.GetById(query.ShoppingListId);
-
-        if(shoppingList == null)
+        public GetShoppingListByIdHandler(IShoppingListRepository repository)
         {
-            return null;
+            _shoppingListRepository = repository;
         }
-
-        ShoppingListDto shoppingListDto = new ShoppingListDto
+        public ShoppingListDto? Handle(GetShoppingListById query)
         {
-            Id = shoppingList.Id,
-            Items = shoppingList.Items
-        };
+            ShoppingList shoppingList = _shoppingListRepository.GetById(query.ShoppingListId);
 
-        return shoppingListDto;
+            if (shoppingList == null)
+            {
+                return null;
+            }
+
+            ShoppingListDto shoppingListDto = new ShoppingListDto
+            {
+                Id = shoppingList.Id,
+                Items = shoppingList.Items
+            };
+
+            return shoppingListDto;
+        }
     }
-}
