@@ -1,7 +1,6 @@
 using GroceryList.Application.DTOs;
 using GroceryList.Core.Entities;
 using GroceryList.Core.Repositories;
-using GroceryList.Infrastructure.Repositories;
 
 namespace GroceryList.Application.Queries;
 
