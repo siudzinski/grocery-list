@@ -36,7 +36,7 @@ public class GetShoppingListByIdHandlerTests
         // Assert
         result.ShouldNotBeNull();
         result.Items.ShouldNotBeEmpty();
-        result.Items[0].ShouldBe("test");
+        result.Items.FirstOrDefault().ShouldBe("test");
     }
 
     [Fact]

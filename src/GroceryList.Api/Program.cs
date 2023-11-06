@@ -1,9 +1,13 @@
+using GroceryList.Application.Queries;
+using GroceryList.Core.Repositories;
+using GroceryList.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//register ShoppingListRepository as a singleton scope
-//register GetShoppingListByIdHandler as a transient scope
+builder.Services.AddSingleton<IShoppingListRepository, ShoppingListRepository>();
+builder.Services.AddTransient<GetShoppingListByIdHandler>();
 
 var app = builder.Build();
 

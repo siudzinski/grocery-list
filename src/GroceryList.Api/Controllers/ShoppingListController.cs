@@ -1,3 +1,5 @@
+using GroceryList.Application.DTOs;
+using GroceryList.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryList.Api.Controllers
@@ -6,6 +8,23 @@ namespace GroceryList.Api.Controllers
     [ApiController]
     public class ShoppingListController : ControllerBase
     {
-        //create an endpoint /shopping-list/{id} that return shopping list or NotFound (404)
+        private readonly GetShoppingListByIdHandler _getShoppingListByIdHandler;
+
+        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler)
+        {
+            _getShoppingListByIdHandler = getShoppingListByIdHandler;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetList(Guid id)
+        {
+            ShoppingListDto? shoppingListDto = _getShoppingListByIdHandler.Handle(new GetShoppingListById(id));
+
+            if (shoppingListDto == null)
+            {
+                return NotFound();
+            }
+            return Ok(shoppingListDto);
+        }
     }
 }

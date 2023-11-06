@@ -2,5 +2,6 @@ namespace GroceryList.Application.DTOs;
 
 public class ShoppingListDto
 {
-    //should contain a list of string items
+    public IEnumerable<string>? Items { get; init; }
+    public Guid Id { get; init; }
 }
