@@ -5,19 +5,22 @@ namespace GroceryList.Infrastructure.Repositories;
 
 public class ShoppingListRepository : IShoppingListRepository
 {
-    private List<ShoppingList> _shoppingLists = new()
+    private readonly List<ShoppingList> _shoppingLists;
+
+    public ShoppingListRepository()
     {
-        new() 
-        { 
-            Id = Guid.Parse("4c842603-bcdf-4498-b479-d5b305c7b8c5"), 
-            Items = new List<string> { "apple", "orange" }
-        },
-        new() 
-        { 
-            Id = Guid.Parse("00010d5a-8eb9-45de-93a5-f952b7dd6547"), 
-            Items = new List<string> { "milk", "bread" }
-        },
-    };
+        _shoppingLists = new()
+        {
+            new(Guid.Parse("4c842603-bcdf-4498-b479-d5b305c7b8c5")),
+            new(Guid.Parse("00010d5a-8eb9-45de-93a5-f952b7dd6547")),
+        };
+
+        _shoppingLists[0].AddItem("apple");
+        _shoppingLists[0].AddItem("orange");
+
+        _shoppingLists[1].AddItem("milk");
+        _shoppingLists[1].AddItem("bread");
+    }
 
     public ShoppingList? GetById(Guid id)
     {
