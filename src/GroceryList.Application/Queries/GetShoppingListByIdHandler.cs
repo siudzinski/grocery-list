@@ -24,7 +24,7 @@ public class GetShoppingListByIdHandler
             ShoppingListDto shoppingListDto = new ShoppingListDto
             {
                 Id = shoppingList.Id,
-                Items = shoppingList.Items
+                Items = (IEnumerable<string>)shoppingList.Items
             };
 
             return shoppingListDto;
