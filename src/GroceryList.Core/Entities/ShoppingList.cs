@@ -23,8 +23,8 @@ public class ShoppingList
         }
         else
         {
-            var Newitem = new ShoppingListItem(itemName);
-            _items.Add(Newitem);
+            var newItem = new ShoppingListItem(itemName);
+            _items.Add(newItem);
         }
     }
 }
