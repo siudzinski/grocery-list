@@ -22,7 +22,8 @@ public class GetShoppingListByIdHandlerTests
     {
         // Arrange
         var shoppingListId = Guid.NewGuid();
-        var shoppingList = new ShoppingList { Id = shoppingListId, Items = new List<string> { "test" } };
+        var shoppingList = new ShoppingList(shoppingListId);
+        shoppingList.AddItem("test");
 
         _repositoryMock
             .Setup(repo => repo.GetById(shoppingListId))

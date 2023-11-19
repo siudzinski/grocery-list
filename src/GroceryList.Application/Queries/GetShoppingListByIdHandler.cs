@@ -6,27 +6,27 @@ namespace GroceryList.Application.Queries;
 
 public class GetShoppingListByIdHandler
 {
-        private IShoppingListRepository _shoppingListRepository;
+    private IShoppingListRepository _shoppingListRepository;
 
-        public GetShoppingListByIdHandler(IShoppingListRepository repository)
-        {
-            _shoppingListRepository = repository;
-        }
-        public ShoppingListDto? Handle(GetShoppingListById query)
-        {
-            ShoppingList? shoppingList = _shoppingListRepository.GetById(query.ShoppingListId);
-
-            if (shoppingList == null)
-            {
-                return null;
-            }
-
-            ShoppingListDto shoppingListDto = new ShoppingListDto
-            {
-                Id = shoppingList.Id,
-                Items = shoppingList.Items
-            };
-
-            return shoppingListDto;
-        }
+    public GetShoppingListByIdHandler(IShoppingListRepository repository)
+    {
+        _shoppingListRepository = repository;
     }
+    public ShoppingListDto? Handle(GetShoppingListById query)
+    {
+        ShoppingList? shoppingList = _shoppingListRepository.GetById(query.ShoppingListId);
+
+        if (shoppingList == null)
+        {
+            return null;
+        }
+        IEnumerable<string> items = shoppingList.Items.Select(x => x.Name);
+
+        ShoppingListDto shoppingListDto = new ShoppingListDto
+        {
+            Id = shoppingList.Id,
+            Items = items
+        };
+        return shoppingListDto;
+    }
+}
