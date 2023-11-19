@@ -1,13 +1,14 @@
 namespace GroceryList.Core.Entities;
 
-public record ShoppingListItem
+public class ShoppingListItem
 {
-    public string? Name { get; set; }
-    public int? Quantity { get; set; }
+    public string Name { get; set; }
+    public int Quantity { get; set; }
 
-    public ShoppingListItem()
+    public ShoppingListItem(string name, int quantity = 1)
     {
-        Quantity = 1;
+        Name = name;
+        Quantity = quantity;
     }
     public void IncrementQuantity()
     {

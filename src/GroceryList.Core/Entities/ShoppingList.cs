@@ -17,16 +17,16 @@ public class ShoppingList
     }
     public void AddItem(string itemName)
     {
-        ShoppingListItem SameItem = _items.FirstOrDefault(x => x.Name == itemName);
-        if(SameItem != null)
+        var existingItem = _items.FirstOrDefault(x => x.Name == itemName);
+
+        if (existingItem != null)
         {
-            SameItem.Quantity++;
+            existingItem.IncrementQuantity();
         }
         else
         {
-           var Newitem = new ShoppingListItem();
-            _items.Add(SameItem);
+            var Newitem = new ShoppingListItem(itemName, 1);
+            _items.Add(Newitem);
         }
-      
     }
 }
