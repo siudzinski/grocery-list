@@ -1,6 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Linq.Expressions;
-
 namespace GroceryList.Core.Entities;
 
 public class ShoppingList
@@ -25,7 +23,7 @@ public class ShoppingList
         }
         else
         {
-            var Newitem = new ShoppingListItem(itemName, 1);
+            var Newitem = new ShoppingListItem(itemName);
             _items.Add(Newitem);
         }
     }
