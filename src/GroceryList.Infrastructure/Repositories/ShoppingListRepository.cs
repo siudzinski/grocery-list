@@ -26,4 +26,9 @@ public class ShoppingListRepository : IShoppingListRepository
     {
         return _shoppingLists.FirstOrDefault(_ => _.Id == id);
     }
+
+    public void Save(ShoppingList shoppingList)
+    {
+        _shoppingLists.Add(shoppingList);
+    }
 }
