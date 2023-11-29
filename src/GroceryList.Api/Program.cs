@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IShoppingListRepository, ShoppingListRepository>();
 builder.Services.AddTransient<GetShoppingListByIdHandler>();
-builder.Services.AddSingleton<CreateShoppingListHandler>();
+builder.Services.AddScoped<CreateShoppingListHandler>();
 
 var app = builder.Build();
 

@@ -14,11 +14,22 @@ public class CreateShoppingListHandler
     {
         _shoppingListRepository = shoppingListRepository;
     }
-    public ShoppingListDto? Handle(ShoppingList shoppingList)
+    public ShoppingListDto? Handle(CreateShoppingList createShoppingList)
     { 
-         var shoppingListDto = new ShoppingListDto();
+        var shoppingList = new ShoppingList(Guid.NewGuid());
 
-        shoppingList.AddItem(shoppingListDto.Items.ToString());
+        foreach(var shopping in createShoppingList.Items)
+        {
+            shoppingList.AddItem(shopping);
+        }
+        IEnumerable<string> items = shoppingList.Items.Select(x => x.Name);
+
+        ShoppingListDto shoppingListDto = new ShoppingListDto
+        {
+            Id = Guid.NewGuid(),
+            Items = items
+        };
+
         _shoppingListRepository.Save(shoppingList);
 
     return shoppingListDto;

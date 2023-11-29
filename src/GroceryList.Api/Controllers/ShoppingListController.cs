@@ -31,15 +31,15 @@ namespace GroceryList.Api.Controllers
             }
             return Ok(shoppingListDto);
         }
-        [HttpPost("Shopping-List")]
-        public ActionResult CreateShoppingList([FromBody] ShoppingList items)
+        [HttpPost]
+        public ActionResult CreateShoppingList([FromBody] string[] items)
         {
             if (items == null)
             {
                 return BadRequest(" The list is empty");
             }
 
-            var shoppingListDto = _createShoppingListHandler.Handle(items);
+            var shoppingListDto = _createShoppingListHandler.Handle(new CreateShoppingList(items));
 
             return Ok(shoppingListDto);
         }
