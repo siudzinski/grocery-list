@@ -1,9 +1,7 @@
 using GroceryList.Application.Commands;
 using GroceryList.Application.DTOs;
 using GroceryList.Application.Queries;
-using GroceryList.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace GroceryList.Api.Controllers
 {
@@ -32,14 +30,13 @@ namespace GroceryList.Api.Controllers
             return Ok(shoppingListDto);
         }
         [HttpPost]
-        public ActionResult CreateShoppingList([FromBody] string[] items)
+        public ActionResult CreateShoppingList(CreateShoppingList request)
         {
-            if (items == null)
+            if (request == null || request.Items.Length == 0)
             {
                 return BadRequest(" The list is empty");
             }
-
-            var shoppingListDto = _createShoppingListHandler.Handle(new CreateShoppingList(items));
+            var shoppingListDto = _createShoppingListHandler.Handle(request);
 
             return Ok(shoppingListDto);
         }
