@@ -1,3 +1,4 @@
+using GroceryList.Application.Commands;
 using GroceryList.Application.Queries;
 using GroceryList.Core.Repositories;
 using GroceryList.Infrastructure.Repositories;
@@ -8,6 +9,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IShoppingListRepository, ShoppingListRepository>();
 builder.Services.AddTransient<GetShoppingListByIdHandler>();
+builder.Services.AddTransient<CreateShoppingListHandler>();
 
 var app = builder.Build();
 

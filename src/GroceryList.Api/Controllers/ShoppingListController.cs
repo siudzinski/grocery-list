@@ -1,3 +1,4 @@
+using GroceryList.Application.Commands;
 using GroceryList.Application.DTOs;
 using GroceryList.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace GroceryList.Api.Controllers
     public class ShoppingListController : ControllerBase
     {
         private readonly GetShoppingListByIdHandler _getShoppingListByIdHandler;
+        private readonly CreateShoppingListHandler _createShoppingListHandler;
 
-        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler)
+        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler)
         {
             _getShoppingListByIdHandler = getShoppingListByIdHandler;
+            _createShoppingListHandler = createShoppingListHandler;
         }
 
         [HttpGet("{id}")]
@@ -24,6 +27,17 @@ namespace GroceryList.Api.Controllers
             {
                 return NotFound();
             }
+            return Ok(shoppingListDto);
+        }
+        [HttpPost]
+        public ActionResult CreateShoppingList(CreateShoppingList request)
+        {
+            if (request == null || request.Items.Length == 0)
+            {
+                return BadRequest(" The list is empty");
+            }
+            var shoppingListDto = _createShoppingListHandler.Handle(request);
+
             return Ok(shoppingListDto);
         }
     }
