@@ -7,4 +7,6 @@ public interface IShoppingListRepository
     ShoppingList? GetById(Guid id);
 
     void Save(ShoppingList shoppingList);
+    
+    bool AddNewItem(Guid id, string[] item);
 }

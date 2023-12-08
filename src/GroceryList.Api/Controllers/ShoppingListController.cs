@@ -40,5 +40,16 @@ namespace GroceryList.Api.Controllers
 
             return Ok(shoppingListDto);
         }
+        [HttpGet]
+        public ActionResult ShoppingListIdStatus(GetShoppingListById id)
+        {
+            var shoppingListDto = _getShoppingListByIdHandler.Handle(id);
+
+            if(shoppingListDto == null)
+            {
+                return NotFound("The list with the given id does not exist");
+            }
+            return Ok(shoppingListDto);
+        }
     }
 }
