@@ -12,11 +12,11 @@ public class CreateShoppingListHandler
     {
         _shoppingListRepository = shoppingListRepository;
     }
-    public ShoppingListDto? Handle(CreateShoppingList createShoppingList)
+    public ShoppingListDto? Handle(AddShoppingListItem createShoppingList)
     {
         var shoppingList = new ShoppingList(Guid.NewGuid());
 
-        foreach (var list in createShoppingList.Items)
+        foreach (var list in createShoppingList.ShoppingListItem)
         {
             shoppingList.AddItem(list);
         }

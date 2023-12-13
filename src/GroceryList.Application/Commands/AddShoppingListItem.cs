@@ -1,4 +1,6 @@
 ﻿
+using GroceryList.Application.Queries;
+
 namespace GroceryList.Application.Commands;
 
-    public record AddShoppingListItem(string[] ShoppingListItem);
+    public record AddShoppingListItem(GetShoppingListById Id, string[] ShoppingListItem);

@@ -21,12 +21,6 @@ public class ShoppingListRepository : IShoppingListRepository
         _shoppingLists[1].AddItem("milk");
         _shoppingLists[1].AddItem("bread");
     }
-
-    public bool AddNewItem(Guid id, string[] items)
-    {
-       return _shoppingLists.FirstOrDefault(x => x.Id == id) != null;
-    }
-
     public ShoppingList? GetById(Guid id)
     {
         return _shoppingLists.FirstOrDefault(_ => _.Id == id);

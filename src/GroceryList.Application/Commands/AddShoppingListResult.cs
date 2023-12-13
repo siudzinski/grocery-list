@@ -8,6 +8,6 @@ namespace GroceryList.Application.Commands
 {
     public class AddShoppingListResult
     {
-        public bool result { get; set; }
+        public bool Result { get; set; }
     }
 }

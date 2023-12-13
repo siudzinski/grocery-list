@@ -11,11 +11,13 @@ namespace GroceryList.Api.Controllers
     {
         private readonly GetShoppingListByIdHandler _getShoppingListByIdHandler;
         private readonly CreateShoppingListHandler _createShoppingListHandler;
+        private readonly AddShoppingListItemHandler _addShoppingListItemHandler;
 
-        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler)
+        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler, AddShoppingListItemHandler addShoppingListItemHandler)
         {
             _getShoppingListByIdHandler = getShoppingListByIdHandler;
             _createShoppingListHandler = createShoppingListHandler;
+            _addShoppingListItemHandler = addShoppingListItemHandler;
         }
 
         [HttpGet("{id}")]
@@ -30,9 +32,9 @@ namespace GroceryList.Api.Controllers
             return Ok(shoppingListDto);
         }
         [HttpPost]
-        public ActionResult CreateShoppingList(CreateShoppingList request)
+        public ActionResult CreateShoppingList(AddShoppingListItem request)
         {
-            if (request == null || request.Items.Length == 0)
+            if (request == null || request.ShoppingListItem.Length == 0)
             {
                 return BadRequest(" The list is empty");
             }
@@ -41,15 +43,16 @@ namespace GroceryList.Api.Controllers
             return Ok(shoppingListDto);
         }
         [HttpGet]
-        public ActionResult ShoppingListIdStatus(GetShoppingListById id)
+        public ActionResult ShoppingListIdStatus(AddShoppingListItem addShoppingListItem)
         {
-            var shoppingListDto = _getShoppingListByIdHandler.Handle(id);
+            var shoppingListDto = _getShoppingListByIdHandler.Handle(addShoppingListItem.Id);
 
             if(shoppingListDto == null)
             {
                 return NotFound("The list with the given id does not exist");
             }
-            return Ok(shoppingListDto);
+            var AddNewItem = _addShoppingListItemHandler.AddItemToShoppingList(shoppingListDto.Id, addShoppingListItem.ShoppingListItem);
+            return Ok(AddNewItem);
         }
     }
 }

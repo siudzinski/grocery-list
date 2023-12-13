@@ -1,4 +1,5 @@
 using GroceryList.Application.Commands;
+using GroceryList.Application.Queries;
 using GroceryList.Core.Entities;
 using GroceryList.Core.Repositories;
 using Moq;
@@ -13,8 +14,8 @@ public class CreateShoppingListHandlerTests
         // Arrange
         var repositoryMock = new Mock<IShoppingListRepository>();
         var systemUnderTests = new CreateShoppingListHandler(repositoryMock.Object);
-
-        var command = new CreateShoppingList(new[] { "Item1", "Item2", "Item3" });
+        var shoppingListId = new GetShoppingListById(Guid.NewGuid());
+        var command = new AddShoppingListItem(shoppingListId, new[] { "Item1", "Item2", "Item3" });
 
         // Act
         systemUnderTests.Handle(command);

@@ -1,3 +1,5 @@
+using GroceryList.Application.Queries;
+
 namespace GroceryList.Application.Commands;
 
-public record CreateShoppingList(string[] Items);
+public record AddShoppingListItems(string[] Items);
