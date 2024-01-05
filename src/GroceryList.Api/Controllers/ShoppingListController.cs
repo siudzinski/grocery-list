@@ -11,11 +11,13 @@ namespace GroceryList.Api.Controllers
     {
         private readonly GetShoppingListByIdHandler _getShoppingListByIdHandler;
         private readonly CreateShoppingListHandler _createShoppingListHandler;
+        private readonly AddShoppingListItemHandler _addShoppingListItemHandler;
 
-        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler)
+        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler, AddShoppingListItemHandler addShoppingListItemHandler)
         {
             _getShoppingListByIdHandler = getShoppingListByIdHandler;
             _createShoppingListHandler = createShoppingListHandler;
+            _addShoppingListItemHandler = addShoppingListItemHandler;
         }
 
         [HttpGet("{id}")]
@@ -39,6 +41,22 @@ namespace GroceryList.Api.Controllers
             var shoppingListDto = _createShoppingListHandler.Handle(request);
 
             return Ok(shoppingListDto);
+        }
+
+        [HttpPost("{id}")]
+        public ActionResult AddShoppingListItem(Guid id, [FromBody] ShoppingListItemsDto request)
+        {
+            var command = new AddShoppingListItem(id, request.Items);
+
+            var result = _addShoppingListItemHandler.Handle(command);
+
+
+            if (!result.Success)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }
