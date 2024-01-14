@@ -1,11 +1,4 @@
-﻿using GroceryList.Application.DTOs;
-using GroceryList.Core.Entities;
-using GroceryList.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GroceryList.Core.Repositories;
 
 namespace GroceryList.Application.Commands
 {
@@ -20,7 +13,12 @@ namespace GroceryList.Application.Commands
 
         public AddShoppingListItemResult Handle(AddShoppingListItem addShoppingListItem)
         {
-            var shoppingList = new ShoppingList(Guid.NewGuid());
+            var shoppingList = _shoppingListRepository.GetById(addShoppingListItem.Id);
+
+            if(shoppingList == null)
+            {
+                return new AddShoppingListItemResult(false);
+            }
 
             foreach (var item in addShoppingListItem.Items)
             {
