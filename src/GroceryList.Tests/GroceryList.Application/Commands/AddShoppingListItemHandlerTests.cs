@@ -31,8 +31,8 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
             var addShoppingListItem = new AddShoppingListItem(shoppingListId, item);
 
 
-            _repositoryMock
-             .Setup(repo => repo.Save(It.IsAny<ShoppingList>()));
+            _repositoryMock.Setup(repo => repo.GetById(shoppingListId))
+                   .Returns(new ShoppingList(shoppingListId));
 
             var query = new AddShoppingListItem(shoppingListId, item);
 
@@ -40,8 +40,11 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
             var result = _systemUnderTests.Handle(addShoppingListItem);
 
             // Assert
+            _repositoryMock.Verify(repo => repo.Save(It.IsAny<ShoppingList>()), Times.Once);
             result.ShouldNotBeNull();
             result.Success.ShouldBeTrue();
+
+
         }
         [Fact]
         public void Handle_Should_Add_Item_To_ShoppingList_and_return_false()
@@ -53,7 +56,7 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
 
 
             _repositoryMock
-             .Setup(repo => repo.Save(It.IsAny<ShoppingList>()));
+             .Setup(repo => repo.GetById(It.IsAny<Guid>()));
 
             var query = new AddShoppingListItem(shoppingListId, item);
 
@@ -61,6 +64,7 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
             var result = _systemUnderTests.Handle(addShoppingListItem);
 
             // Assert
+            _repositoryMock.Verify(repo => repo.Save(It.IsAny<ShoppingList>()), Times.Never);
             result.ShouldNotBeNull();
             result.Success.ShouldBeFalse();
         }
