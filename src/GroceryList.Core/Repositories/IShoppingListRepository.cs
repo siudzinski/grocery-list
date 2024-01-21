@@ -7,4 +7,5 @@ public interface IShoppingListRepository
     ShoppingList? GetById(Guid id);
 
     void Save(ShoppingList shoppingList);
+    void Delete(Guid id);
 }

@@ -20,6 +20,7 @@ public class ShoppingListRepository : IShoppingListRepository
 
         _shoppingLists[1].AddItem("milk");
         _shoppingLists[1].AddItem("bread");
+
     }
 
     public ShoppingList? GetById(Guid id)
@@ -30,5 +31,18 @@ public class ShoppingListRepository : IShoppingListRepository
     public void Save(ShoppingList shoppingList)
     {
         _shoppingLists.Add(shoppingList);
+    }
+    public void Delete(Guid id)
+    {
+        var shoppingList = _shoppingLists.FirstOrDefault(x => x.Id == id);
+
+        if (shoppingList != null)
+        {
+            _shoppingLists.Remove(shoppingList);
+        }
+        else
+        {
+            throw new Exception("There is no list to delete");
+        }
     }
 }
