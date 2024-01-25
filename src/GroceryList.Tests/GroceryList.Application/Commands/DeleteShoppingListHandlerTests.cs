@@ -28,10 +28,7 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
             var shoppingListId = Guid.NewGuid();
             var deleteShoppingList = new DeleteShoppingList(shoppingListId);
 
-            if(shoppingListId != Guid.Empty)
-            {         
-               _repositoryMock.Setup(x => x.Delete(shoppingListId));
-            }
+            _repositoryMock.Setup(repo => repo.GetById(It.IsAny<Guid>())).Returns(new ShoppingList(shoppingListId));
                          
             // Act 
 
@@ -50,18 +47,13 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
            
             var deleteShoppingList = new DeleteShoppingList(shoppingListId);
 
-            if(shoppingListId == Guid.Empty)
-            {
-               false.ShouldBeFalse();
-                _repositoryMock.Setup(x => x.Delete(shoppingListId));
-            }
-       
+            _repositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
             // Act 
 
             var result = _systemUnderTests.DeleteShoppingList(deleteShoppingList);
 
             // Assert
-            _repositoryMock.Verify(repo => repo.Delete(shoppingListId));
+            _repositoryMock.Verify(repo => repo.Delete(shoppingListId), Times.Never);
             result.ShouldNotBeNull();
             result.Success.ShouldBeFalse();
 
