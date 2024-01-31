@@ -61,7 +61,7 @@ namespace GroceryList.Api.Controllers
 
             return Ok();
         }
-        [HttpDelete("shopping-list/{id}")]
+        [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
             var command = new DeleteShoppingList(id);

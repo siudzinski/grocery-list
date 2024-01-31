@@ -47,7 +47,7 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
 
             var deleteShoppingList = new DeleteShoppingList(shoppingListId);
 
-            _repositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()));
+            _repositoryMock.Setup(x => x.GetById(shoppingListId)).Returns((ShoppingList?)null);
             // Act 
 
             var result = _systemUnderTests.DeleteShoppingList(deleteShoppingList);
