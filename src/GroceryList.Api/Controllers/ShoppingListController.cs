@@ -1,6 +1,7 @@
 using GroceryList.Application.Commands;
 using GroceryList.Application.DTOs;
 using GroceryList.Application.Queries;
+using GroceryList.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryList.Api.Controllers
@@ -12,12 +13,14 @@ namespace GroceryList.Api.Controllers
         private readonly GetShoppingListByIdHandler _getShoppingListByIdHandler;
         private readonly CreateShoppingListHandler _createShoppingListHandler;
         private readonly AddShoppingListItemHandler _addShoppingListItemHandler;
+        private readonly DeleteshoppingListHandler _deleteShoppingListHandler;
 
-        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler, AddShoppingListItemHandler addShoppingListItemHandler)
+        public ShoppingListController(GetShoppingListByIdHandler getShoppingListByIdHandler, CreateShoppingListHandler createShoppingListHandler, AddShoppingListItemHandler addShoppingListItemHandler, DeleteshoppingListHandler deleteShoppingListHandler)
         {
             _getShoppingListByIdHandler = getShoppingListByIdHandler;
             _createShoppingListHandler = createShoppingListHandler;
             _addShoppingListItemHandler = addShoppingListItemHandler;
+            _deleteShoppingListHandler = deleteShoppingListHandler;
         }
 
         [HttpGet("{id}")]
@@ -58,5 +61,17 @@ namespace GroceryList.Api.Controllers
 
             return Ok();
         }
-    }
+        [HttpDelete("{id}")]
+        public ActionResult Delete(Guid id)
+        {
+            var command = new DeleteShoppingList(id);
+            var result = _deleteShoppingListHandler.DeleteShoppingList(command);
+           
+            if(!result.Success)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+    }   
 }
