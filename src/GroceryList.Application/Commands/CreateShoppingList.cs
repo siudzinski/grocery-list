@@ -1,3 +1,5 @@
+using GroceryList.Core.Entities;
+
 namespace GroceryList.Application.Commands;
 
-public record CreateShoppingList(string[] Items);
+public record CreateShoppingList(List<ShoppingListItem> Items, int Quantity);

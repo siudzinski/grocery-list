@@ -2,5 +2,5 @@
 
 namespace GroceryList.Application.Commands
 {
-    public record AddShoppingListItem(Guid Id, string[] Items);
+    public record AddShoppingListItem(Guid Id, List<ShoppingListItem> Items);
 }

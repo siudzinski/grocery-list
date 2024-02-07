@@ -37,7 +37,7 @@ namespace GroceryList.Api.Controllers
         [HttpPost]
         public ActionResult CreateShoppingList(CreateShoppingList request)
         {
-            if (request == null || request.Items.Length == 0)
+            if (request == null || request.Items == null)
             {
                 return BadRequest(" The list is empty");
             }

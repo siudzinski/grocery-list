@@ -1,6 +1,7 @@
 using GroceryList.Application.DTOs;
 using GroceryList.Core.Entities;
 using GroceryList.Core.Repositories;
+using System.Linq;
 
 namespace GroceryList.Application.Queries;
 
@@ -20,12 +21,15 @@ public class GetShoppingListByIdHandler
         {
             return null;
         }
-        IEnumerable<string> items = shoppingList.Items.Select(x => x.Name);
+        var Items = shoppingList.Items
+             .GroupBy(item => item.Name)
+              .Select(group => new ShoppingListItemsDto(group.Select(item => new ShoppingListItem(item.Name, item.Quantity)).ToList()));
+
 
         ShoppingListDto shoppingListDto = new ShoppingListDto
         {
             Id = shoppingList.Id,
-            Items = items
+            Items = Items.ToList(),
         };
         return shoppingListDto;
     }

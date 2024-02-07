@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
+
 namespace GroceryList.Core.Entities;
 
 public class ShoppingList
@@ -13,7 +15,7 @@ public class ShoppingList
         Id = id;
         _items = new List<ShoppingListItem>();
     }
-    public void AddItem(string itemName)
+    public void AddItem(string itemName, int quantity)
     {
         var existingItem = _items.FirstOrDefault(x => x.Name == itemName);
 
@@ -23,7 +25,7 @@ public class ShoppingList
         }
         else
         {
-            var newItem = new ShoppingListItem(itemName);
+            var newItem = new ShoppingListItem(itemName, quantity );
             _items.Add(newItem);
         }
     }

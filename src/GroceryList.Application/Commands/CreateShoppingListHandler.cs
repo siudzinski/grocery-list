@@ -1,6 +1,7 @@
 using GroceryList.Application.DTOs;
 using GroceryList.Core.Entities;
 using GroceryList.Core.Repositories;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GroceryList.Application.Commands;
 
@@ -16,16 +17,16 @@ public class CreateShoppingListHandler
     {
         var shoppingList = new ShoppingList(Guid.NewGuid());
 
-        foreach (var list in createShoppingList.Items)
+
+        foreach (var item in createShoppingList.Items)
         {
-            shoppingList.AddItem(list);
+            shoppingList.AddItem(item.Name, item.Quantity);
         }
-        IEnumerable<string> items = shoppingList.Items.Select(x => x.Name);
 
         ShoppingListDto shoppingListDto = new ShoppingListDto
         {
             Id = shoppingList.Id,
-            Items = items
+
         };
 
         _shoppingListRepository.Save(shoppingList);
