@@ -23,7 +23,7 @@ public class GetShoppingListByIdHandlerTests
         // Arrange
         var shoppingListId = Guid.NewGuid();
         var shoppingList = new ShoppingList(shoppingListId);
-        shoppingList.AddItem("test");
+        shoppingList.AddItem("test",1);
 
         _repositoryMock
             .Setup(repo => repo.GetById(shoppingListId))
@@ -37,7 +37,10 @@ public class GetShoppingListByIdHandlerTests
         // Assert
         result.ShouldNotBeNull();
         result.Items.ShouldNotBeEmpty();
-        result.Items.FirstOrDefault().ShouldBe("test");
+        var firstItem = result.Items.FirstOrDefault();
+        Assert.NotNull(firstItem);
+        Assert.Equal("test", firstItem!.Name);
+        Assert.Equal(1, firstItem!.Quantity);
     }
 
     [Fact]

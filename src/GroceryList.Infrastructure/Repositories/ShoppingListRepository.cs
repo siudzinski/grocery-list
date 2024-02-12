@@ -15,11 +15,11 @@ public class ShoppingListRepository : IShoppingListRepository
             new(Guid.Parse("00010d5a-8eb9-45de-93a5-f952b7dd6547")),
         };
 
-        _shoppingLists[0].AddItem("apple");
-        _shoppingLists[0].AddItem("orange");
+        _shoppingLists[0].AddItem("apple",1);
+        _shoppingLists[0].AddItem("orange", 1);
 
-        _shoppingLists[1].AddItem("milk");
-        _shoppingLists[1].AddItem("bread");
+        _shoppingLists[1].AddItem("milk", 1);
+        _shoppingLists[1].AddItem("bread", 1);
 
     }
 

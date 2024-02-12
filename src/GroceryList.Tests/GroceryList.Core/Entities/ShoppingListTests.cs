@@ -26,8 +26,8 @@ public class ShoppingListTests
         string itemName2 = "Item 2";
 
         // Act
-        shoppingList.AddItem(itemName1);
-        shoppingList.AddItem(itemName2);
+        shoppingList.AddItem(itemName1,1);
+        shoppingList.AddItem(itemName2,1);
 
         // Assert
         shoppingList.Items.Count.ShouldBe(2);
@@ -47,8 +47,8 @@ public class ShoppingListTests
         string itemName = "Item";
 
         // Act
-        shoppingList.AddItem(itemName);
-        shoppingList.AddItem(itemName);
+        shoppingList.AddItem(itemName, 1);
+        shoppingList.AddItem(itemName, 1);
 
         // Assert
         var item = shoppingList.Items.SingleOrDefault(i => i.Name == itemName);

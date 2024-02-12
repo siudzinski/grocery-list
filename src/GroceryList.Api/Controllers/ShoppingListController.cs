@@ -47,12 +47,17 @@ namespace GroceryList.Api.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult AddShoppingListItem(Guid id, [FromBody] ShoppingListItemsDto request)
+        public ActionResult AddShoppingListItem(Guid id, [FromBody] List<ShoppingListItemsDto> request)
         {
-            var command = new AddShoppingListItem(id, request.Items);
+            var shoppingListItem = new List<ShoppingListItem>();
 
+            foreach (var item in request)
+            {
+                shoppingListItem.Add(new ShoppingListItem(item.Name, item.Quantity ?? 1));
+            }
+
+            var command = new AddShoppingListItem(id, shoppingListItem);
             var result = _addShoppingListItemHandler.Handle(command);
-
 
             if (!result.Success)
             {
@@ -66,12 +71,12 @@ namespace GroceryList.Api.Controllers
         {
             var command = new DeleteShoppingList(id);
             var result = _deleteShoppingListHandler.DeleteShoppingList(command);
-           
-            if(!result.Success)
+
+            if (!result.Success)
             {
                 return NotFound();
             }
             return Ok();
         }
-    }   
+    }
 }

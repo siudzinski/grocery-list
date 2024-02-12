@@ -22,7 +22,7 @@ namespace GroceryList.Application.Commands
 
             foreach (var item in addShoppingListItem.Items)
             {
-                shoppingList.AddItem(item);
+                shoppingList.AddItem(item.Name,item.Quantity);
             }
 
             _shoppingListRepository.Save(shoppingList);

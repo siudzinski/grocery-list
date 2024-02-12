@@ -27,14 +27,19 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
         {
             // Arrange
             var shoppingListId = Guid.NewGuid();
-            var item = new[] { "item1", "item2", "item3" };
-            var addShoppingListItem = new AddShoppingListItem(shoppingListId, item);
-
+            var item = new ShoppingListItem("item1", 1);
+            var addShoppingListItem = new AddShoppingListItem(shoppingListId, new List<ShoppingListItem>
+            {
+                item
+            });
 
             _repositoryMock.Setup(repo => repo.GetById(shoppingListId))
                    .Returns(new ShoppingList(shoppingListId));
 
-            var query = new AddShoppingListItem(shoppingListId, item);
+            var query = new AddShoppingListItem(shoppingListId, new List<ShoppingListItem> 
+            {
+                item
+            });
 
             // Act
             var result = _systemUnderTests.Handle(addShoppingListItem);
@@ -51,7 +56,7 @@ namespace GroceryList.Tests.GroceryList.Application.Commands
         {
             // Arrange
             var shoppingListId = Guid.NewGuid();
-            var item = new string[0];
+            var item = new List<ShoppingListItem>();
             var addShoppingListItem = new AddShoppingListItem(shoppingListId, item);
 
 
