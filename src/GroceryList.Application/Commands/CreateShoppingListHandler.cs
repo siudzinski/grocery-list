@@ -20,12 +20,16 @@ public class CreateShoppingListHandler
         {
             shoppingList.AddItem(list);
         }
-        IEnumerable<string> items = shoppingList.Items.Select(x => x.Name);
+        var items = shoppingList.Items.Select(item => new ShoppingListQuantityDto
+        {
+            Name = item.Name,
+            Quantity = item.Quantity,
+        });
 
         ShoppingListDto shoppingListDto = new ShoppingListDto
         {
             Id = shoppingList.Id,
-            Items = items
+           Items = items.ToList(),
         };
 
         _shoppingListRepository.Save(shoppingList);
