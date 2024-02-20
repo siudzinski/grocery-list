@@ -47,7 +47,7 @@ namespace GroceryList.Api.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult AddShoppingListItem(Guid id, [FromBody] ShoppingListItemsDto request)
+        public ActionResult AddShoppingListItem(Guid id, [FromBody] ShoppingListItemsPayload request)
         {
             var command = new AddShoppingListItem(id, request.Items);
 

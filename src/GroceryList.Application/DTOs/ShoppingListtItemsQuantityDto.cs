@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GroceryList.Application.DTOs
 {
-    public class ShoppingListQuantityDto
+    public class ShoppingListtItemsQuantityDto
     {
         public string? Name { get; set; }
         public int? Quantity { get; set; }

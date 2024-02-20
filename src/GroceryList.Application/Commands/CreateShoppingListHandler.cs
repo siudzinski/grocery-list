@@ -20,7 +20,7 @@ public class CreateShoppingListHandler
         {
             shoppingList.AddItem(list);
         }
-        var items = shoppingList.Items.Select(item => new ShoppingListQuantityDto
+        var items = shoppingList.Items.Select(item => new ShoppingListtItemsQuantityDto
         {
             Name = item.Name,
             Quantity = item.Quantity,

@@ -20,7 +20,7 @@ public class GetShoppingListByIdHandler
         {
             return null;
         }
-        var items = shoppingList.Items.Select(item => new ShoppingListQuantityDto
+        var items = shoppingList.Items.Select(item => new ShoppingListtItemsQuantityDto
         {
             Name = item.Name,
             Quantity = item.Quantity,
