@@ -20,16 +20,18 @@ public class GetShoppingListByIdHandler
         {
             return null;
         }
-        var items = shoppingList.Items.Select(item => new ShoppingListtItemsQuantityDto
-        {
-            Name = item.Name,
-            Quantity = item.Quantity,
-        });
+        var sortedItems = shoppingList.Items
+            .GroupBy(item => item.Name.ToLower())
+            .Select(sort => new ShoppingListtItemsQuantityDto
+            {
+                Name = sort.First().Name,
+                Quantity = sort.Sum(item => item.Quantity)
+            });
 
         ShoppingListDto shoppingListDto = new ShoppingListDto
         {
             Id = shoppingList.Id,
-            Items = items
+            Items = sortedItems.ToList()
         };
         return shoppingListDto;
     }
