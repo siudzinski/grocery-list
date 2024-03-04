@@ -24,6 +24,8 @@ public class GetShoppingListByIdHandlerTests
         var shoppingListId = Guid.NewGuid();
         var shoppingList = new ShoppingList(shoppingListId);
         shoppingList.AddItem("test");
+        shoppingList.AddItem("test");
+        shoppingList.AddItem("test1");
 
         _repositoryMock
             .Setup(repo => repo.GetById(shoppingListId))
@@ -37,7 +39,9 @@ public class GetShoppingListByIdHandlerTests
         // Assert
         result.ShouldNotBeNull();
         result.Items.ShouldNotBeEmpty();
-        result.Items.FirstOrDefault().ShouldBe("test");
+        result.Items.Count().ShouldBe(2);
+        result.Items.ShouldContain(item => item.Name == "test" && item.Quantity == 2);
+        result.Items.ShouldContain(item2 => item2.Name == "test1" && item2.Quantity == 1); 
     }
 
     [Fact]

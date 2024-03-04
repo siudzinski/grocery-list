@@ -20,7 +20,11 @@ public class GetShoppingListByIdHandler
         {
             return null;
         }
-        IEnumerable<string> items = shoppingList.Items.Select(x => x.Name);
+        var items = shoppingList.Items.Select(item => new ShoppingListtItemsQuantityDto
+        {
+            Name = item.Name,
+            Quantity = item.Quantity,
+        });
 
         ShoppingListDto shoppingListDto = new ShoppingListDto
         {
